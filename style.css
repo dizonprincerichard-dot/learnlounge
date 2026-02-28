@@ -14,7 +14,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 30px;
+    gap: 20px;
 }
 
 #siteName {
@@ -27,6 +27,29 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+/* --- New Tagline & Emoji --- */
+#taglineContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+#sofaEmoji {
+    font-size: 3rem;
+    margin-bottom: 5px;
+}
+
+#taglineText {
+    font-family: 'Cursive', 'Georgia', serif;
+    font-size: 1.2rem;
+    color: #A35A1F;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* --- Category Buttons --- */
 #categoryButtons {
     display: flex;
     gap: 20px;
