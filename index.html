@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LearnLounge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>LearnLounge</h1>
+
+  <div id="home">
+    <button onclick="openCategory('rants')">🗯 Rants</button>
+    <button onclick="openCategory('academics')">📚 Academics</button>
+    <button onclick="openCategory('confessions')">💌 Confessions</button>
+  </div>
+
+  <div id="categoryPage" style="display:none;">
+    <button onclick="goHome()">⬅ Back</button>
+    <h2 id="categoryTitle"></h2>
+
+    <input type="text" id="username" placeholder="Username (optional)">
+    <textarea id="message" placeholder="Write something..."></textarea>
+    <button onclick="postMessage()">Post</button>
+
+    <div id="posts"></div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
