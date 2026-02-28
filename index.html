@@ -11,16 +11,16 @@
   <!-- HOME PAGE -->
   <div id="home">
     <h1 id="siteName">LearnLounge</h1>
-
-    <button onclick="openCategory('Rants')">Rants</button>
-    <button onclick="openCategory('Academics')">Academics</button>
-    <button onclick="openCategory('Confessions')">Confessions</button>
+    <div id="categoryButtons">
+      <button onclick="openCategory('Rants')">💬 Rants</button>
+      <button onclick="openCategory('Academics')">📚 Academics</button>
+      <button onclick="openCategory('Confessions')">🤫 Confessions</button>
+    </div>
   </div>
 
   <!-- CATEGORY PAGE -->
   <div id="categoryPage" style="display:none;">
     <button onclick="goHome()" id="backButton">⬅ Back</button>
-
     <h2 id="categoryTitle"></h2>
 
     <div id="postInputContainer">
