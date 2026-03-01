@@ -18,20 +18,15 @@
   <p class="tagline">🛋️ Your Safe Space to Share Without Fear</p>
 </header>
 
-<!-- Profile -->
-<div class="profile">
-  <label for="username">Username:</label>
-  <input type="text" id="username" placeholder="Anonymous">
-  <label for="userColor">Pick your color:</label>
-  <input type="color" id="userColor" value="#FFA500">
-</div>
-
 <!-- Category stats -->
 <div id="categoryStats" class="stats-box">
   Loading stats...
 </div>
 
-<!-- Home Categories -->
+<!-- Quote of the day -->
+<div id="dailyQuote" class="quote-box"></div>
+
+<!-- Home Categories and Visuals -->
 <div id="home" class="categories">
   <div class="homeVisuals">
     <div class="homeCard" style="background:#FFD699;">Share your thoughts freely! 💬</div>
@@ -39,7 +34,7 @@
     <div class="homeCard" style="background:#E69138;">Connect with other students 📚</div>
   </div>
   <button class="category-btn" onclick="openCategory('Rants')">Rants</button>
-  <button class="category-btn" onclick="openCategory('Academics')">Academics</button>
+  <button class="category-btn confession-btn" onclick="openCategory('Academics')">Academics</button>
   <button class="category-btn" onclick="openCategory('Confessions')">Confessions</button>
 </div>
 
@@ -47,6 +42,39 @@
 <div id="categoryPage" class="categoryPage">
   <button onclick="goHome()" class="backBtn">← Home</button>
   <h2 id="categoryTitle"></h2>
+
+  <!-- Font & Post Theme Selector -->
+  <div class="postOptions">
+    <label for="fontSelect">Choose Font:</label>
+    <select id="fontSelect">
+      <option value="'Georgia', serif">Georgia</option>
+      <option value="'Courier New', monospace">Courier New</option>
+      <option value="'Palatino Linotype', serif">Palatino</option>
+      <option value="'Lucida Console', monospace">Lucida</option>
+      <option value="'Times New Roman', serif">Times New Roman</option>
+      <option value="'Verdana', sans-serif">Verdana</option>
+      <option value="'Garamond', serif">Garamond</option>
+      <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+    </select>
+
+    <label for="themeSelect">Post Background:</label>
+    <select id="themeSelect">
+      <option value="#FFF1E0">Cream</option>
+      <option value="#FFE0B2">Light Orange</option>
+      <option value="#FFD699">Light Yellow</option>
+      <option value="#F6B26B">Peach</option>
+      <option value="#E69138">Brownish</option>
+      <option value="#F9CB9C">Soft Tan</option>
+    </select>
+  </div>
+
+  <!-- Profile & Post Box -->
+  <div class="profile">
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Anonymous">
+    <label for="userColor">Pick your color:</label>
+    <input type="color" id="userColor" value="#FFA500">
+  </div>
 
   <!-- Leaderboard Button -->
   <button class="leaderboardBtn" onclick="showLeaderboard()">🏆 Show Top 10</button>

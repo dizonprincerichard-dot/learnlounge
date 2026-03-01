@@ -19,6 +19,17 @@ let reactedPosts = {};
 let currentUsername = "";
 let currentUserColor = "#FFA500";
 
+// Daily Quotes (rotate by day)
+const quotes = [
+  "📚 Learn something new every day!",
+  "🛋️ Sharing is caring!",
+  "💬 Speak your mind freely!",
+  "🤎 Connection matters more than perfection.",
+  "🧡 A safe space is a brave space.",
+  "💛 Every thought has value.",
+  "📖 Knowledge grows when shared."
+];
+
 // Load category stats
 async function loadCategoryStats(){
   const categories = ["Rants","Academics","Confessions"];
@@ -31,6 +42,13 @@ async function loadCategoryStats(){
   document.getElementById("categoryStats").innerHTML = 
     `Rants: ${stats["Rants"]} | Academics: ${stats["Academics"]} | Confessions: ${stats["Confessions"]}`;
 }
+
+// Display daily quote
+function showDailyQuote(){
+  const day = new Date().getDay();
+  document.getElementById("dailyQuote").innerText = quotes[day];
+}
+showDailyQuote();
 
 // Open category
 window.openCategory = function(category){
@@ -46,6 +64,7 @@ window.goHome = function(){
   document.getElementById("home").style.display="block";
   document.getElementById("categoryPage").style.display="none";
   loadCategoryStats();
+  showDailyQuote();
 };
 
 // Post message
@@ -55,6 +74,9 @@ window.postMessage = async function(){
   const message = document.getElementById("message").value;
   if(message==="") return alert("Write something!");
   for(let word of badWords) if(message.includes(word)) return alert("Inappropriate word detected.");
+
+  const fontChoice = document.getElementById("fontSelect").value;
+  const bgChoice = document.getElementById("themeSelect").value;
 
   const now = new Date();
   await addDoc(collection(db,"posts"),{
@@ -69,7 +91,9 @@ window.postMessage = async function(){
     cools:0,
     reports:0,
     timestamp: now.toISOString(),
-    color: currentUserColor
+    color: currentUserColor,
+    font: fontChoice,
+    bg: bgChoice
   });
 
   document.getElementById("message").value="";
@@ -86,7 +110,8 @@ function loadPosts(){
     snapshot.forEach((docSnap)=>{
       const data = docSnap.data();
       const postId = docSnap.id;
-      const msg = data.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>');
+      let msg = data.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>');
+      msg = msg.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 
       let userMenu = '';
       if(data.username===currentUsername){
@@ -100,7 +125,7 @@ function loadPosts(){
       }
 
       postsContainer.innerHTML += `
-        <div class="post">
+        <div class="post" style="background:${data.bg}; font-family:${data.font};">
           <strong style="color:${data.color}">${data.username}</strong> 
           <small>${new Date(data.timestamp).toLocaleString()}</small>
           ${userMenu}
@@ -127,7 +152,7 @@ window.toggleMenu = function(id){
   menu.style.display = menu.style.display==="block"?"none":"block";
 };
 
-// Edit post (own only)
+// Inline Edit post
 window.editPost = async function(id){
   const newMsg = prompt("Edit your post:");
   if(!newMsg) return;
@@ -147,7 +172,7 @@ window.deletePostAdmin = async function(id){
   await deleteDoc(doc(db,"posts",id));
 };
 
-// Reactions (1 per user)
+// Reactions
 window.react = async function(id,type){
   if(reactedPosts[id]) return alert("You already reacted!");
   reactedPosts[id] = true;
@@ -170,7 +195,7 @@ window.reportPost = async function(id){
   }
 };
 
-// Leaderboard: Top 10 posts by total reactions
+// Leaderboard
 window.showLeaderboard = async function() {
   const container = document.getElementById("leaderboardContainer");
   container.style.display = "block";
@@ -189,9 +214,9 @@ window.showLeaderboard = async function() {
 
   container.innerHTML = "<h3>🏆 Top 10 Posts</h3>";
   top10.forEach((p,i) => {
-    const msg = p.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>');
+    const msg = p.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
     container.innerHTML += `
-      <div class="post topPost">
+      <div class="post topPost" style="background:${p.bg}; font-family:${p.font};">
         <strong style="color:${p.color}">${i+1}. ${p.username}</strong> 
         <small>${new Date(p.timestamp).toLocaleString()}</small>
         <p>${msg}</p>

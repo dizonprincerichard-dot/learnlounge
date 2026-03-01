@@ -28,6 +28,19 @@ header h1 {
   margin-top:5px;
 }
 
+/* Quote box */
+.quote-box {
+  text-align:center;
+  font-style:italic;
+  margin:10px;
+  padding:10px;
+  color:#A15E2A;
+  font-family:'Palatino Linotype', serif;
+  background: linear-gradient(to right, #FFE0B2, #FFD699);
+  border-radius:10px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
 /* Profile section */
 .profile {
   display:flex;
@@ -71,7 +84,27 @@ header h1 {
 }
 .category-btn:nth-child(1){background:#F6B26B;} /* Rants */
 .category-btn:nth-child(2){background:#F9CB9C;} /* Academics */
-.category-btn:nth-child(3){background:#E69138;} /* Confessions */
+.category-btn.confession-btn{background:#E69138;} /* Confessions */
+
+/* Home visuals */
+.homeVisuals {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:10px 0;
+  flex-wrap:wrap;
+}
+.homeCard {
+  flex:1 1 150px;
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:bold;
+  color:#5C3A21;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.homeCard:hover { transform: translateY(-5px); }
 
 /* Post Box */
 .postBox {
@@ -115,6 +148,7 @@ header h1 {
 .post strong { display:inline-block; }
 .post p { margin:5px 0; white-space:pre-wrap; }
 .hashtag {color:#D87C3C;font-weight:bold;}
+.post a {color:#D87C3C;text-decoration:underline;}
 
 /* Reactions */
 .reactions button {
@@ -201,26 +235,17 @@ header h1 {
   100% {transform: translateY(-10vh) translateX(50px);}
 }
 
-/* Home page visuals */
-.homeVisuals {
+/* Font & theme selectors */
+.postOptions {
   display:flex;
   justify-content:center;
   gap:10px;
   margin:10px 0;
-  flex-wrap:wrap;
 }
-.homeCard {
-  flex:1 1 150px;
-  padding:15px;
-  border-radius:15px;
-  text-align:center;
+.postOptions label, .postOptions select {
   font-weight:bold;
-  color:#5C3A21;
-  box-shadow:0 3px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s;
-}
-.homeCard:hover {
-  transform: translateY(-5px);
+  border-radius:5px;
+  padding:2px 5px;
 }
 
 /* Leaderboard */
@@ -235,10 +260,7 @@ header h1 {
   cursor:pointer;
   transition: background 0.2s, transform 0.2s;
 }
-.leaderboardBtn:hover {
-  background:#FFB300;
-  transform: scale(1.05);
-}
+.leaderboardBtn:hover { background:#FFB300; transform: scale(1.05); }
 
 .leaderboardContainer {
   background:#FFF3E0;
@@ -259,4 +281,6 @@ header h1 {
 @media(max-width:600px){
   .postBox textarea {width:90vw;}
   .post {width:90vw;}
+  .homeCard {flex:1 1 100%;}
+  .postOptions {flex-direction:column; gap:5px;}
 }
