@@ -33,6 +33,11 @@
 
 <!-- Home Categories -->
 <div id="home" class="categories">
+  <div class="homeVisuals">
+    <div class="homeCard" style="background:#FFD699;">Share your thoughts freely! 💬</div>
+    <div class="homeCard" style="background:#F6B26B;">Safe, anonymous, and fun 🛋️</div>
+    <div class="homeCard" style="background:#E69138;">Connect with other students 📚</div>
+  </div>
   <button class="category-btn" onclick="openCategory('Rants')">Rants</button>
   <button class="category-btn" onclick="openCategory('Academics')">Academics</button>
   <button class="category-btn" onclick="openCategory('Confessions')">Confessions</button>
@@ -42,6 +47,10 @@
 <div id="categoryPage" class="categoryPage">
   <button onclick="goHome()" class="backBtn">← Home</button>
   <h2 id="categoryTitle"></h2>
+
+  <!-- Leaderboard Button -->
+  <button class="leaderboardBtn" onclick="showLeaderboard()">🏆 Show Top 10</button>
+  <div id="leaderboardContainer" class="leaderboardContainer"></div>
 
   <div class="postBox">
     <textarea id="message" placeholder="Share your thoughts..."></textarea>

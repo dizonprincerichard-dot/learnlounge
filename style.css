@@ -1,5 +1,5 @@
 /* General */
-body {
+body {   
   margin:0;
   font-family: 'Arial', sans-serif;
   background: #FFF8E7;
@@ -199,6 +199,60 @@ header h1 {
 @keyframes float {
   0% {transform: translateY(100vh) translateX(0);}
   100% {transform: translateY(-10vh) translateX(50px);}
+}
+
+/* Home page visuals */
+.homeVisuals {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:10px 0;
+  flex-wrap:wrap;
+}
+.homeCard {
+  flex:1 1 150px;
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:bold;
+  color:#5C3A21;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.homeCard:hover {
+  transform: translateY(-5px);
+}
+
+/* Leaderboard */
+.leaderboardBtn {
+  margin:10px;
+  padding:8px 15px;
+  border:none;
+  border-radius:10px;
+  background:#F9A825;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.leaderboardBtn:hover {
+  background:#FFB300;
+  transform: scale(1.05);
+}
+
+.leaderboardContainer {
+  background:#FFF3E0;
+  border-radius:10px;
+  margin:10px auto;
+  padding:10px;
+  max-width:600px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.15);
+}
+.topPost {
+  background:#FFE0B2;
+  padding:8px;
+  border-radius:8px;
+  margin:5px 0;
 }
 
 /* Responsive */

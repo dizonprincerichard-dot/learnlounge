@@ -170,5 +170,36 @@ window.reportPost = async function(id){
   }
 };
 
+// Leaderboard: Top 10 posts by total reactions
+window.showLeaderboard = async function() {
+  const container = document.getElementById("leaderboardContainer");
+  container.style.display = "block";
+
+  const q = query(collection(db, "posts"), where("category", "==", currentCategory));
+  const snapshot = await getDocs(q);
+  let postsArr = [];
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const totalReactions = data.likes + data.hearts + data.sads + data.laughs + data.angrys + data.cools;
+    postsArr.push({...data, id: docSnap.id, totalReactions});
+  });
+
+  postsArr.sort((a,b) => b.totalReactions - a.totalReactions);
+  const top10 = postsArr.slice(0,10);
+
+  container.innerHTML = "<h3>🏆 Top 10 Posts</h3>";
+  top10.forEach((p,i) => {
+    const msg = p.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>');
+    container.innerHTML += `
+      <div class="post topPost">
+        <strong style="color:${p.color}">${i+1}. ${p.username}</strong> 
+        <small>${new Date(p.timestamp).toLocaleString()}</small>
+        <p>${msg}</p>
+        <small>Total Reactions: ${p.totalReactions}</small>
+      </div>
+    `;
+  });
+};
+
 // Initial load
 loadCategoryStats();
