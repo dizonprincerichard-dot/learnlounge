@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LearnLounge</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnLounge</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HOME PAGE -->
-  <div id="home">
-    <h1 id="siteName">LearnLounge</h1>
-    
-    <!-- New Emoji and Tagline -->
-    <div id="taglineContainer">
-      <div id="sofaEmoji">🛋️</div>
-      <p id="taglineText">Your Safe Space to Share Without Fear</p>
-    </div>
+<!-- Animated floating icons -->
+<div class="floating-icons">
+  <span>💛</span><span>🧡</span><span>🤎</span><span>📚</span><span>🛋️</span>
+</div>
 
-    <div id="categoryButtons">
-      <button onclick="openCategory('Rants')">💬 Rants</button>
-      <button onclick="openCategory('Academics')">📚 Academics</button>
-      <button onclick="openCategory('Confessions')">🤫 Confessions</button>
-    </div>
+<header>
+  <h1>LearnLounge</h1>
+  <p class="tagline">🛋️ Your Safe Space to Share Without Fear</p>
+</header>
+
+<!-- Profile -->
+<div class="profile">
+  <label for="username">Username:</label>
+  <input type="text" id="username" placeholder="Anonymous">
+  <label for="userColor">Pick your color:</label>
+  <input type="color" id="userColor" value="#FFA500">
+</div>
+
+<!-- Category stats -->
+<div id="categoryStats" class="stats-box">
+  Loading stats...
+</div>
+
+<!-- Home Categories -->
+<div id="home" class="categories">
+  <button class="category-btn" onclick="openCategory('Rants')">Rants</button>
+  <button class="category-btn" onclick="openCategory('Academics')">Academics</button>
+  <button class="category-btn" onclick="openCategory('Confessions')">Confessions</button>
+</div>
+
+<!-- Category page -->
+<div id="categoryPage" class="categoryPage">
+  <button onclick="goHome()" class="backBtn">← Home</button>
+  <h2 id="categoryTitle"></h2>
+
+  <div class="postBox">
+    <textarea id="message" placeholder="Share your thoughts..."></textarea>
+    <button onclick="postMessage()">Post</button>
   </div>
 
-  <!-- CATEGORY PAGE -->
-  <div id="categoryPage" style="display:none;">
-    <button onclick="goHome()" id="backButton">⬅ Back</button>
-    <h2 id="categoryTitle"></h2>
+  <div id="posts"></div>
+</div>
 
-    <div id="postInputContainer">
-      <input type="text" id="username" placeholder="Enter username (optional)">
-      <textarea id="message" placeholder="Write your post..."></textarea>
-      <button onclick="postMessage()" id="postButton">Post</button>
-    </div>
-
-    <div id="posts"></div>
-  </div>
-
-  <script type="module" src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
