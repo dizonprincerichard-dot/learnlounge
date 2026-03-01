@@ -19,16 +19,25 @@ let reactedPosts = {};
 let currentUsername = "";
 let currentUserColor = "#FFA500";
 
-// Daily Quotes (rotate by day)
+// Quotes per day
 const quotes = [
-  "📚 Learn something new every day!",
-  "🛋️ Sharing is caring!",
-  "💬 Speak your mind freely!",
-  "🤎 Connection matters more than perfection.",
-  "🧡 A safe space is a brave space.",
-  "💛 Every thought has value.",
-  "📖 Knowledge grows when shared."
+  "📚 Knowledge is power. – Francis Bacon",
+  "🛋️ Take a moment for yourself today.",
+  "💡 Creativity comes from curiosity.",
+  "😊 Happiness is found in small things.",
+  "✏️ Learning never exhausts the mind. – Leonardo da Vinci",
+  "🌱 Growth begins outside the comfort zone.",
+  "💬 Share, connect, and support each other."
 ];
+
+// Initial load
+window.onload = function() {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("categoryPage").style.display = "none";
+  const day = new Date().getDay();
+  document.getElementById("quoteOfTheDay").innerText = quotes[day];
+  loadCategoryStats();
+};
 
 // Load category stats
 async function loadCategoryStats(){
@@ -42,13 +51,6 @@ async function loadCategoryStats(){
   document.getElementById("categoryStats").innerHTML = 
     `Rants: ${stats["Rants"]} | Academics: ${stats["Academics"]} | Confessions: ${stats["Confessions"]}`;
 }
-
-// Display daily quote
-function showDailyQuote(){
-  const day = new Date().getDay();
-  document.getElementById("dailyQuote").innerText = quotes[day];
-}
-showDailyQuote();
 
 // Open category
 window.openCategory = function(category){
@@ -64,19 +66,17 @@ window.goHome = function(){
   document.getElementById("home").style.display="block";
   document.getElementById("categoryPage").style.display="none";
   loadCategoryStats();
-  showDailyQuote();
 };
 
 // Post message
 window.postMessage = async function(){
   currentUsername = document.getElementById("username").value || "Anonymous";
   currentUserColor = document.getElementById("userColor").value || "#FFA500";
+  const font = document.getElementById("postFont").value;
+  const bgColor = document.getElementById("postBg").value;
   const message = document.getElementById("message").value;
   if(message==="") return alert("Write something!");
   for(let word of badWords) if(message.includes(word)) return alert("Inappropriate word detected.");
-
-  const fontChoice = document.getElementById("fontSelect").value;
-  const bgChoice = document.getElementById("themeSelect").value;
 
   const now = new Date();
   await addDoc(collection(db,"posts"),{
@@ -92,8 +92,8 @@ window.postMessage = async function(){
     reports:0,
     timestamp: now.toISOString(),
     color: currentUserColor,
-    font: fontChoice,
-    bg: bgChoice
+    font: font,
+    bg: bgColor
   });
 
   document.getElementById("message").value="";
@@ -102,6 +102,7 @@ window.postMessage = async function(){
 
 // Load posts
 function loadPosts(){
+  if(!currentCategory) return;
   const postsContainer = document.getElementById("posts");
   const q = query(collection(db,"posts"),where("category","==",currentCategory));
 
@@ -110,8 +111,8 @@ function loadPosts(){
     snapshot.forEach((docSnap)=>{
       const data = docSnap.data();
       const postId = docSnap.id;
-      let msg = data.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>');
-      msg = msg.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+      const msg = data.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>')
+                              .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 
       let userMenu = '';
       if(data.username===currentUsername){
@@ -125,7 +126,7 @@ function loadPosts(){
       }
 
       postsContainer.innerHTML += `
-        <div class="post" style="background:${data.bg}; font-family:${data.font};">
+        <div class="post" style="background:${data.bg}; font-family:${data.font}">
           <strong style="color:${data.color}">${data.username}</strong> 
           <small>${new Date(data.timestamp).toLocaleString()}</small>
           ${userMenu}
@@ -152,7 +153,7 @@ window.toggleMenu = function(id){
   menu.style.display = menu.style.display==="block"?"none":"block";
 };
 
-// Inline Edit post
+// Edit post (own only)
 window.editPost = async function(id){
   const newMsg = prompt("Edit your post:");
   if(!newMsg) return;
@@ -172,7 +173,7 @@ window.deletePostAdmin = async function(id){
   await deleteDoc(doc(db,"posts",id));
 };
 
-// Reactions
+// Reactions (no toggle)
 window.react = async function(id,type){
   if(reactedPosts[id]) return alert("You already reacted!");
   reactedPosts[id] = true;
@@ -214,9 +215,10 @@ window.showLeaderboard = async function() {
 
   container.innerHTML = "<h3>🏆 Top 10 Posts</h3>";
   top10.forEach((p,i) => {
-    const msg = p.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+    const msg = p.message.replace(/#(\w+)/g,'<span class="hashtag">#$1</span>')
+                         .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
     container.innerHTML += `
-      <div class="post topPost" style="background:${p.bg}; font-family:${p.font};">
+      <div class="post topPost" style="background:${p.bg}; font-family:${p.font}">
         <strong style="color:${p.color}">${i+1}. ${p.username}</strong> 
         <small>${new Date(p.timestamp).toLocaleString()}</small>
         <p>${msg}</p>
@@ -225,6 +227,3 @@ window.showLeaderboard = async function() {
     `;
   });
 };
-
-// Initial load
-loadCategoryStats();

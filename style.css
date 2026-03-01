@@ -28,32 +28,6 @@ header h1 {
   margin-top:5px;
 }
 
-/* Quote box */
-.quote-box {
-  text-align:center;
-  font-style:italic;
-  margin:10px;
-  padding:10px;
-  color:#A15E2A;
-  font-family:'Palatino Linotype', serif;
-  background: linear-gradient(to right, #FFE0B2, #FFD699);
-  border-radius:10px;
-  box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Profile section */
-.profile {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-.profile input[type="text"], .profile input[type="color"] {
-  padding:5px;
-  border-radius:5px;
-  border:1px solid #DFA869;
-}
-
 /* Category stats */
 .stats-box {
   text-align:center;
@@ -63,30 +37,23 @@ header h1 {
   border-radius:10px;
   font-weight:bold;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
 }
-.stats-box:hover { transform: translateY(-2px); }
 
-/* Category buttons */
-.category-btn {
-  padding:10px 20px;
-  margin:5px;
-  border:none;
+/* Quote */
+.quoteBox {
+  text-align:center;
+  font-style:italic;
+  margin:10px auto;
+  padding:10px;
+  max-width:500px;
+  background:#FFF3E0;
   border-radius:10px;
-  cursor:pointer;
   font-weight:bold;
-  color:#FFF;
-  transition: transform 0.2s, box-shadow 0.2s;
+  color:#5C3A21;
+  box-shadow:0 2px 4px rgba(0,0,0,0.1);
 }
-.category-btn:hover { 
-  transform: scale(1.05);
-  box-shadow:0 2px 5px rgba(0,0,0,0.2);
-}
-.category-btn:nth-child(1){background:#F6B26B;} /* Rants */
-.category-btn:nth-child(2){background:#F9CB9C;} /* Academics */
-.category-btn.confession-btn{background:#E69138;} /* Confessions */
 
-/* Home visuals */
+/* Home page visuals */
 .homeVisuals {
   display:flex;
   justify-content:center;
@@ -105,6 +72,25 @@ header h1 {
   transition: transform 0.2s;
 }
 .homeCard:hover { transform: translateY(-5px); }
+
+/* Category buttons */
+.category-btn {
+  padding:10px 20px;
+  margin:5px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  color:#FFF;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.category-btn:hover { 
+  transform: scale(1.05);
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+.category-btn:nth-child(1){background:#F6B26B;} /* Rants */
+.category-btn:nth-child(2){background:#F9CB9C;} /* Academics */
+.confessionBtn {background:#E69138;} /* Confessions updated */
 
 /* Post Box */
 .postBox {
@@ -135,7 +121,6 @@ header h1 {
 
 /* Posts */
 .post {
-  background:#FFF1E0;
   border-radius:10px;
   padding:10px;
   margin:10px auto;
@@ -144,11 +129,11 @@ header h1 {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: transform 0.1s;
 }
-.post:hover { transform: translateY(-2px);}
+.post:hover { transform: translateY(-2px); }
 .post strong { display:inline-block; }
 .post p { margin:5px 0; white-space:pre-wrap; }
 .hashtag {color:#D87C3C;font-weight:bold;}
-.post a {color:#D87C3C;text-decoration:underline;}
+.post a {color:#5C3A21;text-decoration:underline;}
 
 /* Reactions */
 .reactions button {
@@ -199,7 +184,6 @@ header h1 {
   cursor:pointer;
   font-size:0.8rem;
   opacity:0.8;
-  transition: opacity 0.2s;
 }
 .adminDeleteBtn:hover {opacity:1;}
 
@@ -212,9 +196,34 @@ header h1 {
   background:#D87C3C;
   color:white;
   cursor:pointer;
-  transition: background 0.2s;
 }
 .backBtn:hover { background:#BF5E2C; }
+
+/* Leaderboard */
+.leaderboardBtn {
+  margin:10px;
+  padding:8px 15px;
+  border:none;
+  border-radius:10px;
+  background:#F9A825;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+.leaderboardBtn:hover { background:#FFB300; }
+.leaderboardContainer {
+  background:#FFF3E0;
+  border-radius:10px;
+  margin:10px auto;
+  padding:10px;
+  max-width:600px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.15);
+}
+.topPost {
+  padding:8px;
+  border-radius:8px;
+  margin:5px 0;
+}
 
 /* Floating icons */
 .floating-icons {
@@ -235,52 +244,23 @@ header h1 {
   100% {transform: translateY(-10vh) translateX(50px);}
 }
 
-/* Font & theme selectors */
-.postOptions {
+/* Profile inputs */
+.profile {
   display:flex;
   justify-content:center;
   gap:10px;
-  margin:10px 0;
+  margin-bottom:15px;
+  flex-wrap:wrap;
 }
-.postOptions label, .postOptions select {
-  font-weight:bold;
+.profile input[type="text"], .profile input[type="color"], .profile select {
+  padding:5px;
   border-radius:5px;
-  padding:2px 5px;
-}
-
-/* Leaderboard */
-.leaderboardBtn {
-  margin:10px;
-  padding:8px 15px;
-  border:none;
-  border-radius:10px;
-  background:#F9A825;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-.leaderboardBtn:hover { background:#FFB300; transform: scale(1.05); }
-
-.leaderboardContainer {
-  background:#FFF3E0;
-  border-radius:10px;
-  margin:10px auto;
-  padding:10px;
-  max-width:600px;
-  box-shadow:0 2px 5px rgba(0,0,0,0.15);
-}
-.topPost {
-  background:#FFE0B2;
-  padding:8px;
-  border-radius:8px;
-  margin:5px 0;
+  border:1px solid #DFA869;
 }
 
 /* Responsive */
 @media(max-width:600px){
   .postBox textarea {width:90vw;}
   .post {width:90vw;}
-  .homeCard {flex:1 1 100%;}
-  .postOptions {flex-direction:column; gap:5px;}
+  .homeCard {flex:1 1 90%;}
 }
